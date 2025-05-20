@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://drnagroforest.com.br/sitemap.xml
