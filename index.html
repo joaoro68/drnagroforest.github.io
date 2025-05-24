@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="DRN Agroforest oferece soluções com drones para agricultura e florestas, incluindo mapeamento aéreo, monitoramento e pulverização.">
   <meta name="keywords" content="drones, agricultura, florestas, mapeamento aéreo, monitoramento, pulverização">
-  <title>DRN Agroforest - Tecnologia com Drones</title>
+  <title>DRN Agroforest - Soluções com Drones para Agricultura e Florestas</title>
+  <link rel="icon" type="image/png" href="./img/drone.png">
+  <link href="https://fonts.googleapis.com/css2?family=TT+Hoves:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     .carousel {
@@ -34,9 +36,13 @@
     .hero-section {
       position: relative;
       width: 100%;
-      height: 96;
+      height: 24rem; /* equivalente a h-96 do Tailwind */
+      display: flex;
+      align-items: center;
+      justify-content: center;
       overflow: hidden;
     }
+
     .hero-video {
       position: absolute;
       top: 0;
@@ -54,7 +60,27 @@
       position: relative;
       z-index: 2;
       color: white;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7); /* Para melhor legibilidade do texto */
+      text-shadow: 0 3px 6px rgba(0, 0, 0, 0.9); /* Shadow apenas para os parágrafos */
+    }
+    .hero-logo {
+      max-width: 40%;
+      height: auto;
+      margin-bottom: 1rem;
+    }
+
+    /* Ajuste para telas menores */
+    @media (max-width: 640px) {
+      .hero-logo {
+        max-width: 90%; /* Aumenta a largura em telas menores */
+      }
+    }
+    /* Aplicar a fonte TT Hoves */
+    
+    body {
+      font-family: 'TT Hoves', Arial, Helvetica, sans-serif;
+    }
+    h1, h2, h3, p, a {
+      font-family: 'TT Hoves', Arial, Helvetica, sans-serif;
     }
   </style>
 </head>
@@ -62,7 +88,9 @@
   <!-- Header -->
   <header class="bg-green-800 text-white">
     <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <h1 class="text-2xl font-bold">DRN Agroforest</h1>
+      <a href="/">
+        <img src="./img/logo.png" alt="DRN Agroforest Logo" class="h-10">
+      </a>
       <nav>
         <ul class="flex space-x-6">
           <li><a href="#servicos" class="hover:text-green-300">Serviços</a></li>
@@ -74,18 +102,19 @@
   </header>
 
   <!-- Hero Section com Vídeo Local -->
-  <section class="hero-section h-96 flex items-center justify-center text-white">
-    <div class="hero-video">
-      <video autoplay muted loop playsinline>
-        <source src="./videos/video1.mp4" type="video/mp4">
-        Seu navegador não suporta a tag de vídeo.
-      </video>
-    </div>
-    <div class="hero-content text-center">
-      <h2 class="text-4xl font-bold mb-4">Tecnologia com Drones para Agricultura e Florestas</h2>
-      <p class="text-lg">Soluções inovadoras para otimizar seus resultados</p>
-    </div>
-  </section>
+<section class="relative w-full h-96 overflow-hidden flex items-center justify-center text-white">
+  <div class="hero-video absolute inset-0 z-0">
+    <video autoplay muted loop playsinline class="w-full h-full object-cover">
+      <source src="./videos/video1.mp4" type="video/mp4">
+      Seu navegador não suporta a tag de vídeo.
+    </video>
+  </div>
+  <div class="hero-content relative z-10 text-center">
+    <img src="./img/logo.png" alt="DRN Agroforest Logo" class="hero-logo mx-auto">
+    <p class="text-lg">Tecnologia com Drones para Agricultura e Florestas</p>
+    <p class="text-lg">Soluções inovadoras para otimizar seus resultados</p>
+  </div>
+</section>
 
   <!-- Services Section with Carousel -->
   <section id="servicos" class="py-16 bg-white">
