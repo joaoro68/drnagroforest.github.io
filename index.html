@@ -1,134 +1,188 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DRN Agroforest</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="DRN Agroforest oferece soluções com drones para agricultura e florestas, incluindo mapeamento aéreo, monitoramento e pulverização.">
+  <meta name="keywords" content="drones, agricultura, florestas, mapeamento aéreo, monitoramento, pulverização">
+  <title>DRN Agroforest - Tecnologia com Drones</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    a{
-        color: #333;
-    }
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
-      color: #333;
-    }
-    header {
-      background: #1a4d2e;
-      color: white;
-      padding: 40px 20px;
-      text-align: center;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2.5rem;
-    }
-    header p {
-      font-size: 1.2rem;
-      margin-top: 10px;
-    }
-    nav {
-      background: #14532d;
+    .carousel {
       display: flex;
-      justify-content: center;
-      gap: 30px;
-      padding: 10px 0;
+      overflow: hidden;
+      width: 100%;
+      position: relative;
     }
-    nav a {
+    .carousel-item {
+      min-width: 100%;
+      transition: transform 0.5s ease-in-out;
+    }
+    .carousel-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.5);
       color: white;
-      text-decoration: none;
-      font-weight: bold;
+      padding: 10px;
+      cursor: pointer;
+      z-index: 10;
     }
-    nav a:hover {
-      text-decoration: underline;
+    .carousel-button.prev { left: 10px; }
+    .carousel-button.next { right: 10px; }
+    /* Estilo para a seção Hero com vídeo */
+    .hero-section {
+      position: relative;
+      width: 100%;
+      height: 96;
+      overflow: hidden;
     }
-    section {
-      padding: 40px 20px;
-      max-width: 900px;
-      margin: auto;
+    .hero-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
     }
-    .services {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
+    .hero-video video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Cobre a área, cortando se necessário */
     }
-    .card {
-      background: #f0fdf4;
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      transition: transform 0.2s;
-    }
-    .card:hover {
-      transform: scale(1.02);
-    }
-    .card h3 {
-      margin-top: 0;
-      color: #166534;
-    }
-    footer {
-      background: #1a4d2e;
+    .hero-content {
+      position: relative;
+      z-index: 2;
       color: white;
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9rem;
-    }
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 2rem;
-      }
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7); /* Para melhor legibilidade do texto */
     }
   </style>
 </head>
-<body>
-
-  <header>
-    <h1>DRN Agroforest</h1>
-    <p>Tecnologia com drones para agricultura e florestas</p>
+<body class="bg-gray-100 font-sans">
+  <!-- Header -->
+  <header class="bg-green-800 text-white">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">DRN Agroforest</h1>
+      <nav>
+        <ul class="flex space-x-6">
+          <li><a href="#servicos" class="hover:text-green-300">Serviços</a></li>
+          <li><a href="#sobre" class="hover:text-green-300">Sobre</a></li>
+          <li><a href="#contato" class="hover:text-green-300">Contato</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
-  <nav>
-    <a href="#servicos">Serviços</a>
-    <a href="#sobre">Sobre</a>
-    <a href="#contato">Contato</a>
-  </nav>
+  <!-- Hero Section com Vídeo Local -->
+  <section class="hero-section h-96 flex items-center justify-center text-white">
+    <div class="hero-video">
+      <video autoplay muted loop playsinline>
+        <source src="./videos/video1.mp4" type="video/mp4">
+        Seu navegador não suporta a tag de vídeo.
+      </video>
+    </div>
+    <div class="hero-content text-center">
+      <h2 class="text-4xl font-bold mb-4">Tecnologia com Drones para Agricultura e Florestas</h2>
+      <p class="text-lg">Soluções inovadoras para otimizar seus resultados</p>
+    </div>
+  </section>
 
-  <section id="servicos">
-    <h2>Serviços</h2>
-    <div class="services">
-      <div class="card">
-        <h3>Mapeamento Aéreo</h3>
-        <p>Geração de ortomosaicos e modelos 3D para áreas agrícolas e florestais.</p>
-      </div>
-      <div class="card">
-        <h3>Monitoramento de Culturas</h3>
-        <p>Detecção de pragas, estresse hídrico e saúde das plantas com sensores multiespectrais.</p>
-      </div>
-      <div class="card">
-        <h3>Pulverização com Drones</h3>
-        <p>Aplicação localizada de insumos com precisão e economia.</p>
+  <!-- Services Section with Carousel -->
+  <section id="servicos" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-8">Serviços</h2>
+      <div class="carousel relative">
+        <div class="carousel-inner flex">
+          <div class="carousel-item flex-none w-full">
+            <div class="flex flex-col md:flex-row items-center">
+              <img src="./img/image1.jpg" alt="Mapeamento Aéreo" class="w-full md:w-1/2 rounded-lg shadow-lg">
+              <div class="md:ml-8 mt-4 md:mt-0 text-center md:text-left">
+                <h3 class="text-2xl font-semibold">Mapeamento Aéreo</h3>
+                <p class="mt-2 text-gray-600">Geração de ortomosaicos e modelos 3D para áreas agrícolas e florestais.</p>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item flex-none w-full">
+            <div class="flex flex-col md:flex-row items-center">
+              <img src="./img/image2.jpg" alt="Monitoramento de Culturas" class="w-full md:w-1/2 rounded-lg shadow-lg">
+              <div class="md:ml-8 mt-4 md:mt-0 text-center md:text-left">
+                <h3 class="text-2xl font-semibold">Monitoramento de Culturas</h3>
+                <p class="mt-2 text-gray-600">Detecção de pragas, estresse hídrico e saúde das plantas </p>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item flex-none w-full">
+            <div class="flex flex-col md:flex-row items-center">
+              <img src="./img/image3.jpg" alt="Pulverização com Drones" class="w-full md:w-1/2 rounded-lg shadow-lg">
+              <div class="md:ml-8 mt-4 md:mt-0 text-center md:text-left">
+                <h3 class="text-2xl font-semibold">Pulverização com Drones</h3>
+                <p class="mt-2 text-gray-600">Aplicação localizada de insumos com precisão e economia.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-button prev">←</button>
+        <button class="carousel-button next">→</button>
       </div>
     </div>
   </section>
 
-  <section id="sobre">
-    <h2>Sobre Nós</h2>
-    <p>A DRN Agroforest é uma empresa especializada em soluções com drones para o setor florestal e agrícola. Atuamos com tecnologia de ponta para entregar resultados precisos, sustentáveis e economicamente vantajosos.</p>
+  <!-- About Section -->
+  <section id="sobre" class="py-16 bg-gray-100">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-8">Sobre Nós</h2>
+      <p class="text-lg text-gray-600 text-center max-w-3xl mx-auto">
+        A DRN Agroforest é uma empresa especializada em soluções com drones para o setor florestal e agrícola. Atuamos com tecnologia de ponta para entregar resultados precisos, sustentáveis e economicamente vantajosos.
+      </p>
+    </div>
   </section>
 
-  <section id="contato">
-    <h2>Contato</h2>
-    <p>Entre em contato conosco para orçamentos ou dúvidas:</p>
-    <ul>
-      <li>Email: contato@drnagroforest.com.br</li>
-      <li>Telefones: <a href= "https://wa.me/+5543999536692">(43) 99953-6692</a> / <a href="https://wa.me/+5543999774118">(43) 99977-4118</a></li>
-    </ul>
+  <!-- Contact Section -->
+  <section id="contato" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-8">Contato</h2>
+      <p class="text-lg text-gray-600 text-center">Entre em contato conosco para orçamentos ou dúvidas:</p>
+      <div class="mt-6 text-center">
+        <p><strong>Email:</strong> contato@drnagroforest.com.br</p>
+        <p><strong>Telefones:</strong> (43) 99953-6692 / (43) 99977-4118</p>
+      </div>
+    </div>
   </section>
 
-  <footer>
-    &copy; 2025 DRN Agroforest. Todos os direitos reservados.
+  <!-- Footer -->
+  <footer class="bg-green-800 text-white py-4">
+    <div class="container mx-auto px-4 text-center">
+      <p>© 2025 DRN Agroforest. Todos os direitos reservados.</p>
+    </div>
   </footer>
 
+  <!-- Carousel JavaScript -->
+  <script>
+    const carousel = document.querySelector('.carousel-inner');
+    const items = document.querySelectorAll('.carousel-item');
+    const prevButton = document.querySelector('.carousel-button.prev');
+    const nextButton = document.querySelector('.carousel-button.next');
+    let currentIndex = 0;
+
+    function updateCarousel() {
+      carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+
+    prevButton.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + items.length) % items.length;
+      updateCarousel();
+    });
+
+    nextButton.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % items.length;
+      updateCarousel();
+    });
+
+    // Auto-slide every 5 seconds
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % items.length;
+      updateCarousel();
+    }, 5000);
+  </script>
 </body>
 </html>
