@@ -1,217 +1,312 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="DRN Agroforest oferece soluções com drones para agricultura e florestas, incluindo mapeamento aéreo, monitoramento e pulverização.">
   <meta name="keywords" content="drones, agricultura, florestas, mapeamento aéreo, monitoramento, pulverização">
   <title>DRN Agroforest - Soluções com Drones para Agricultura e Florestas</title>
-  <link rel="icon" type="image/png" href="./img/drone.png">
-  <link href="https://fonts.googleapis.com/css2?family=TT+Hoves:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="https://placehold.co/32x32/228B22/FFFFFF?text=DRN">
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
-    .carousel {
-      display: flex;
-      overflow: hidden;
-      width: 100%;
-      position: relative;
+    body {
+      font-family: 'Inter', sans-serif;
     }
+    /* Custom styles for carousel if needed, but Tailwind will handle most */
     .carousel-item {
-      min-width: 100%;
       transition: transform 0.5s ease-in-out;
     }
-    .carousel-button {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0, 0, 0, 0.5);
-      color: white;
-      padding: 10px;
-      cursor: pointer;
-      z-index: 10;
+    /* Simple fade-in animation for sections */
+    .fade-in-section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
     }
-    .carousel-button.prev { left: 10px; }
-    .carousel-button.next { right: 10px; }
-    /* Estilo para a seção Hero com vídeo */
-    .hero-section {
-      position: relative;
-      width: 100%;
-      height: 24rem; /* equivalente a h-96 do Tailwind */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .hero-video {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-    }
-    .hero-video video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover; /* Cobre a área, cortando se necessário */
-    }
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      color: white;
-      text-shadow: 0 3px 6px rgba(0, 0, 0, 0.9); /* Shadow apenas para os parágrafos */
-    }
-    .hero-logo {
-      max-width: 40%;
-      height: auto;
-      margin-bottom: 1rem;
-    }
-
-    /* Ajuste para telas menores */
-    @media (max-width: 640px) {
-      .hero-logo {
-        max-width: 90%; /* Aumenta a largura em telas menores */
-      }
-    }
-    /* Aplicar a fonte TT Hoves */
-    
-    body {
-      font-family: 'TT Hoves', Arial, Helvetica, sans-serif;
-    }
-    h1, h2, h3, p, a {
-      font-family: 'TT Hoves', Arial, Helvetica, sans-serif;
+    .fade-in-section.is-visible {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
-<body class="bg-gray-100 font-sans">
-  <!-- Header -->
-  <header class="bg-green-800 text-white">
-    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <a href="/">
-        <img src="./img/logo.png" alt="DRN Agroforest Logo" class="h-10">
+<body class="bg-gray-50 text-gray-800 antialiased">
+
+  <header class="bg-green-700 text-white shadow-md sticky top-0 z-50">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+      <a href="#" class="flex items-center space-x-2">
+        <img src="https://placehold.co/150x40/FFFFFF/228B22?text=DRN+Agroforest" alt="DRN Agroforest Logo" class="h-10 rounded">
       </a>
-      <nav>
-        <ul class="flex space-x-6">
-          <li><a href="#servicos" class="hover:text-green-300">Serviços</a></li>
-          <li><a href="#sobre" class="hover:text-green-300">Sobre</a></li>
-          <li><a href="#contato" class="hover:text-green-300">Contato</a></li>
-        </ul>
+      <nav class="hidden md:flex space-x-6">
+        <a href="#servicos" class="hover:text-green-200 transition duration-150">Serviços</a>
+        <a href="#sobre" class="hover:text-green-200 transition duration-150">Sobre</a>
+        <a href="#contato" class="hover:text-green-200 transition duration-150">Contato</a>
       </nav>
+      <div class="md:hidden">
+        <button id="mobile-menu-button" class="text-white focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="md:hidden hidden bg-green-700">
+      <a href="#servicos" class="block px-4 py-2 text-white hover:bg-green-600 transition duration-150">Serviços</a>
+      <a href="#sobre" class="block px-4 py-2 text-white hover:bg-green-600 transition duration-150">Sobre</a>
+      <a href="#contato" class="block px-4 py-2 text-white hover:bg-green-600 transition duration-150">Contato</a>
     </div>
   </header>
 
-  <!-- Hero Section com Vídeo Local -->
-<section class="relative w-full h-96 overflow-hidden flex items-center justify-center text-white">
-  <div class="hero-video absolute inset-0 z-0">
-    <video autoplay muted loop playsinline class="w-full h-full object-cover">
+  <section class="relative w-full h-[60vh] sm:h-[80vh] lg:h-screen overflow-hidden flex items-center justify-center text-white">
+    <!--
+    <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover z-0">
       <source src="./videos/video1.mp4" type="video/mp4">
       Seu navegador não suporta a tag de vídeo.
     </video>
-  </div>
-  <div class="hero-content relative z-10 text-center">
-    <img src="./img/logo.png" alt="DRN Agroforest Logo" class="hero-logo mx-auto">
-    <p class="text-lg">Tecnologia com Drones para Agricultura e Florestas</p>
-    <p class="text-lg">Soluções inovadoras para otimizar seus resultados</p>
-  </div>
-</section>
+    -->
+    <div class="absolute inset-0 w-full h-full bg-gray-800 z-0">
+      <video autoplay muted loop playsinline class="w-full h-full object-cover">
+      <source src="./videos/video1.mp4" type="video/mp4">
+      Seu navegador não suporta a tag de vídeo.
+    </video>
+    </div>
+    <div class="absolute inset-0 bg-black opacity-50 z-10"></div> <div class="relative z-20 text-center p-4">
+      <img src="./img/logo.png" alt="DRN Agroforest Logo" class="max-w-xs sm:max-w-sm md:max-w-md mx-auto mb-6 rounded">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 leading-tight">Tecnologia com Drones para Agricultura e Florestas</h1>
+      <p class="text-lg sm:text-xl md:text-2xl text-gray-200">Soluções inovadoras para otimizar seus resultados.</p>
+    </div>
+  </section>
 
-  <!-- Services Section with Carousel -->
-  <section id="servicos" class="py-16 bg-white">
-    <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-8">Serviços</h2>
-      <div class="carousel relative">
-        <div class="carousel-inner flex">
-          <div class="carousel-item flex-none w-full">
-            <div class="flex flex-col md:flex-row items-center">
-              <img src="./img/image1.jpg" alt="Mapeamento Aéreo" class="w-full md:w-1/2 rounded-lg shadow-lg">
-              <div class="md:ml-8 mt-4 md:mt-0 text-center md:text-left">
-                <h3 class="text-2xl font-semibold">Mapeamento Aéreo</h3>
-                <p class="mt-2 text-gray-600">Geração de ortomosaicos e modelos 3D para áreas agrícolas e florestais.</p>
+  <section id="servicos" class="py-16 sm:py-20 lg:py-24 bg-white fade-in-section">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-green-700">Nossos Serviços</h2>
+      <div class="relative overflow-hidden rounded-lg shadow-xl">
+        <div id="carousel-inner" class="flex transition-transform duration-500 ease-in-out">
+          <div class="carousel-item min-w-full">
+            <div class="flex flex-col md:flex-row items-center bg-gray-50 p-6 md:p-10 rounded-lg">
+              <img src="./img/image1.jpg" alt="Mapeamento Aéreo" class="w-full md:w-1/2 h-64 md:h-80 object-cover rounded-lg shadow-lg mb-6 md:mb-0 md:mr-8">
+              <div class="text-center md:text-left">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-3">Mapeamento Aéreo</h3>
+                <p class="text-gray-600 leading-relaxed">Geração de ortomosaicos e modelos 3D precisos para áreas agrícolas e florestais, otimizando o planejamento e a gestão.</p>
               </div>
             </div>
           </div>
-          <div class="carousel-item flex-none w-full">
-            <div class="flex flex-col md:flex-row items-center">
-              <img src="./img/image2.jpg" alt="Monitoramento de Culturas" class="w-full md:w-1/2 rounded-lg shadow-lg">
-              <div class="md:ml-8 mt-4 md:mt-0 text-center md:text-left">
-                <h3 class="text-2xl font-semibold">Monitoramento de Culturas</h3>
-                <p class="mt-2 text-gray-600">Detecção de pragas, estresse hídrico e saúde das plantas </p>
+          <div class="carousel-item min-w-full">
+            <div class="flex flex-col md:flex-row items-center bg-gray-50 p-6 md:p-10 rounded-lg">
+              <img src="./img/image2.jpg" alt="Monitoramento de Culturas" class="w-full md:w-1/2 h-64 md:h-80 object-cover rounded-lg shadow-lg mb-6 md:mb-0 md:mr-8">
+              <div class="text-center md:text-left">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-3">Monitoramento de Culturas</h3>
+                <p class="text-gray-600 leading-relaxed">Detecção precoce de pragas, análise de estresse hídrico e avaliação da saúde das plantas para intervenções assertivas.</p>
               </div>
             </div>
           </div>
-          <div class="carousel-item flex-none w-full">
-            <div class="flex flex-col md:flex-row items-center">
-              <img src="./img/image3.jpg" alt="Pulverização com Drones" class="w-full md:w-1/2 rounded-lg shadow-lg">
-              <div class="md:ml-8 mt-4 md:mt-0 text-center md:text-left">
-                <h3 class="text-2xl font-semibold">Pulverização com Drones</h3>
-                <p class="mt-2 text-gray-600">Aplicação localizada de insumos com precisão e economia.</p>
+          <div class="carousel-item min-w-full">
+            <div class="flex flex-col md:flex-row items-center bg-gray-50 p-6 md:p-10 rounded-lg">
+              <img src="./img/image3.jpg" alt="Pulverização com Drones" class="w-full md:w-1/2 h-64 md:h-80 object-cover rounded-lg shadow-lg mb-6 md:mb-0 md:mr-8">
+              <div class="text-center md:text-left">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-3">Pulverização com Drones</h3>
+                <p class="text-gray-600 leading-relaxed">Aplicação localizada e eficiente de insumos, defensivos e fertilizantes, com precisão, economia e menor impacto ambiental.</p>
               </div>
             </div>
           </div>
         </div>
-        <button class="carousel-button prev">←</button>
-        <button class="carousel-button next">→</button>
+        <button id="prevButton" class="absolute top-1/2 left-2 sm:left-4 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 sm:p-3 rounded-full hover:bg-opacity-75 transition duration-150 focus:outline-none z-10">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </button>
+        <button id="nextButton" class="absolute top-1/2 right-2 sm:right-4 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 sm:p-3 rounded-full hover:bg-opacity-75 transition duration-150 focus:outline-none z-10">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        </button>
+      </div>
+      <div id="carousel-indicators" class="flex justify-center space-x-2 mt-6">
+            </div>
+    </div>
+  </section>
+
+  <section id="sobre" class="py-16 sm:py-20 lg:py-24 bg-gray-100 fade-in-section">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-bold text-center mb-8 text-green-700">Sobre Nós</h2>
+      <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+        <p class="text-lg text-gray-700 leading-relaxed text-center">
+          A <strong class="text-green-700">DRN Agroforest</strong> é uma empresa especializada em soluções com drones para o setor florestal e agrícola. Atuamos com tecnologia de ponta para entregar resultados precisos, sustentáveis e economicamente vantajosos, impulsionando a produtividade e a eficiência no campo.
+        </p>
+        <p class="mt-4 text-lg text-gray-700 leading-relaxed text-center">
+          Nossa equipe é formada por profissionais qualificados e apaixonados por inovação, prontos para entender suas necessidades e oferecer as melhores estratégias para o seu negócio.
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- About Section -->
-  <section id="sobre" class="py-16 bg-gray-100">
-    <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-8">Sobre Nós</h2>
-      <p class="text-lg text-gray-600 text-center max-w-3xl mx-auto">
-        A DRN Agroforest é uma empresa especializada em soluções com drones para o setor florestal e agrícola. Atuamos com tecnologia de ponta para entregar resultados precisos, sustentáveis e economicamente vantajosos.
-      </p>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contato" class="py-16 bg-white">
-    <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-8">Contato</h2>
-      <p class="text-lg text-gray-600 text-center">Entre em contato conosco para orçamentos ou dúvidas:</p>
-      <div class="mt-6 text-center">
-        <p><strong>Email:</strong> contato@drnagroforest.com.br</p>
-        <p><strong>Telefones:</strong> (43) 99953-6692 / (43) 99977-4118</p>
+  <section id="contato" class="py-16 sm:py-20 lg:py-24 bg-green-50 fade-in-section">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-bold text-center mb-8 text-green-700">Entre em Contato</h2>
+      <div class="max-w-xl mx-auto bg-white p-8 rounded-lg shadow-xl text-center">
+        <p class="text-lg text-gray-700 mb-6">
+          Tem alguma dúvida ou gostaria de um orçamento? Fale conosco!
+        </p>
+        <div class="space-y-6">
+          <div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-1">E-mail</h3>
+            <a href="mailto:contato@drnagroforest.com.br" class="text-green-600 hover:text-green-800 text-lg transition duration-150 flex items-center justify-center space-x-2">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+              <span>contato@drnagroforest.com.br</span>
+            </a>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-1">Telefones / WhatsApp</h3>
+            <a href="https://wa.me/5543999536692" target="_blank" rel="noopener noreferrer" class="text-green-600 hover:text-green-800 text-lg transition duration-150 flex items-center justify-center space-x-2 mb-2">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.001 2.001a7.974 7.974 0 00-6.388 2.937L2.066 3.45A1 1 0 00.65 4.864l1.473 6.038a1 1 0 001.24.745l.001-.001.001-.001L4.84 11.13A8.001 8.001 0 1010.001 2zm0 1.5a6.5 6.5 0 11-4.596 11.096l.001-.001L4.28 12.97a1.001 1.001 0 00-1.498-.356L2.066 13.45l-.718-2.947L3.45 8.066a6.476 6.476 0 016.551-4.565zM13.414 10l-1.707-1.707a.5.5 0 00-.708 0L9.293 10H7.5a.5.5 0 000 1h1.793l1.707 1.707a.5.5 0 00.708 0L13.414 11H15a.5.5 0 000-1h-1.586z"></path></svg> <span>(43) 99953-6692</span>
+            </a>
+            <a href="https://wa.me/5543999774118" target="_blank" rel="noopener noreferrer" class="text-green-600 hover:text-green-800 text-lg transition duration-150 flex items-center justify-center space-x-2">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.001 2.001a7.974 7.974 0 00-6.388 2.937L2.066 3.45A1 1 0 00.65 4.864l1.473 6.038a1 1 0 001.24.745l.001-.001.001-.001L4.84 11.13A8.001 8.001 0 1010.001 2zm0 1.5a6.5 6.5 0 11-4.596 11.096l.001-.001L4.28 12.97a1.001 1.001 0 00-1.498-.356L2.066 13.45l-.718-2.947L3.45 8.066a6.476 6.476 0 016.551-4.565zM13.414 10l-1.707-1.707a.5.5 0 00-.708 0L9.293 10H7.5a.5.5 0 000 1h1.793l1.707 1.707a.5.5 0 00.708 0L13.414 11H15a.5.5 0 000-1h-1.586z"></path></svg> <span>(43) 99977-4118</span>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="bg-green-800 text-white py-4">
-    <div class="container mx-auto px-4 text-center">
-      <p>© 2025 DRN Agroforest. Todos os direitos reservados.</p>
+  <footer class="bg-green-800 text-white py-8">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p>&copy; <span id="currentYear"></span> DRN Agroforest. Todos os direitos reservados.</p>
+      <p class="text-sm text-green-200 mt-1">Soluções Inteligentes para o Campo.</p>
     </div>
   </footer>
 
-  <!-- Carousel JavaScript -->
   <script>
-    const carousel = document.querySelector('.carousel-inner');
-    const items = document.querySelectorAll('.carousel-item');
-    const prevButton = document.querySelector('.carousel-button.prev');
-    const nextButton = document.querySelector('.carousel-button.next');
-    let currentIndex = 0;
-
-    function updateCarousel() {
-      carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+    // Mobile Menu Toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenuButton && mobileMenu) {
+      mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+      // Close mobile menu when a link is clicked
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+        });
+      });
     }
 
-    prevButton.addEventListener('click', () => {
-      currentIndex = (currentIndex - 1 + items.length) % items.length;
-      updateCarousel();
+    // Carousel Logic
+    const carouselInner = document.getElementById('carousel-inner');
+    const items = carouselInner ? carouselInner.querySelectorAll('.carousel-item') : [];
+    const prevButton = document.getElementById('prevButton');
+    const nextButton = document.getElementById('nextButton');
+    const indicatorsContainer = document.getElementById('carousel-indicators');
+    let currentIndex = 0;
+    let autoSlideInterval;
+
+    function createIndicators() {
+        if (!indicatorsContainer || items.length === 0) return;
+        indicatorsContainer.innerHTML = ''; // Clear existing indicators
+        items.forEach((_, index) => {
+            const button = document.createElement('button');
+            button.classList.add('w-3', 'h-3', 'rounded-full', 'transition-colors', 'duration-300');
+            if (index === currentIndex) {
+                button.classList.add('bg-green-600');
+            } else {
+                button.classList.add('bg-gray-300', 'hover:bg-gray-400');
+            }
+            button.setAttribute('aria-label', `Go to slide ${index + 1}`);
+            button.addEventListener('click', () => {
+                goToSlide(index);
+                resetAutoSlide();
+            });
+            indicatorsContainer.appendChild(button);
+        });
+    }
+
+    function updateIndicators() {
+        if (!indicatorsContainer) return;
+        const indicatorButtons = indicatorsContainer.querySelectorAll('button');
+        indicatorButtons.forEach((button, index) => {
+            if (index === currentIndex) {
+                button.classList.add('bg-green-600');
+                button.classList.remove('bg-gray-300', 'hover:bg-gray-400');
+            } else {
+                button.classList.remove('bg-green-600');
+                button.classList.add('bg-gray-300', 'hover:bg-gray-400');
+            }
+        });
+    }
+    
+    function updateCarousel() {
+      if (carouselInner && items.length > 0) {
+        carouselInner.style.transform = `translateX(-${currentIndex * 100}%)`;
+        updateIndicators();
+      }
+    }
+
+    function goToSlide(index) {
+        currentIndex = index;
+        updateCarousel();
+    }
+
+    function resetAutoSlide() {
+        clearInterval(autoSlideInterval);
+        if (items.length > 1) {
+            autoSlideInterval = setInterval(() => {
+                currentIndex = (currentIndex + 1) % items.length;
+                updateCarousel();
+            }, 7000); // Increased auto-slide interval
+        }
+    }
+
+    if (items.length > 0) {
+        createIndicators(); // Initial creation of indicators
+        updateCarousel(); // Set initial position
+
+        if (prevButton) {
+            prevButton.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + items.length) % items.length;
+                updateCarousel();
+                resetAutoSlide();
+            });
+        }
+
+        if (nextButton) {
+            nextButton.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % items.length;
+                updateCarousel();
+                resetAutoSlide();
+            });
+        }
+        resetAutoSlide(); // Start auto-slide
+    } else {
+        // Hide controls if no items
+        if (prevButton) prevButton.style.display = 'none';
+        if (nextButton) nextButton.style.display = 'none';
+        if (indicatorsContainer) indicatorsContainer.style.display = 'none';
+    }
+
+
+    // Dynamic Year for Footer
+    const currentYearSpan = document.getElementById('currentYear');
+    if (currentYearSpan) {
+      currentYearSpan.textContent = new Date().getFullYear();
+    }
+
+    // Intersection Observer for fade-in sections
+    const sections = document.querySelectorAll('.fade-in-section');
+    const observerOptions = {
+      root: null, // relative to document viewport
+      rootMargin: '0px',
+      threshold: 0.1 // 10% of item visible
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target); // Optional: stop observing once visible
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
     });
 
-    nextButton.addEventListener('click', () => {
-      currentIndex = (currentIndex + 1) % items.length;
-      updateCarousel();
-    });
-
-    // Auto-slide every 5 seconds
-    setInterval(() => {
-      currentIndex = (currentIndex + 1) % items.length;
-      updateCarousel();
-    }, 5000);
   </script>
 </body>
 </html>
