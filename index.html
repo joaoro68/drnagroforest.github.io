@@ -1,312 +1,1789 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="DRN Agroforest oferece soluções com drones para agricultura e florestas, incluindo mapeamento aéreo, monitoramento e pulverização.">
-  <meta name="keywords" content="drones, agricultura, florestas, mapeamento aéreo, monitoramento, pulverização">
-  <title>DRN Agroforest - Soluções com Drones para Agricultura e Florestas</title>
-  <link rel="icon" type="image/png" href="https://placehold.co/32x32/228B22/FFFFFF?text=DRN">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-    }
-    /* Custom styles for carousel if needed, but Tailwind will handle most */
-    .carousel-item {
-      transition: transform 0.5s ease-in-out;
-    }
-    /* Simple fade-in animation for sections */
-    .fade-in-section {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    }
-    .fade-in-section.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRN Agroforest - Soluções com Drones para Agricultura e Florestas</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <meta name="description" content="DRN Agroforest oferece soluções com drones para agricultura e florestas, incluindo mapeamento aéreo, monitoramento e pulverização.">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* ========== RESET & BASE ========== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --green-dark: #1B5E20;
+            --green-medium: #2E7D32;
+            --green-light: #4CAF50;
+            --green-accent: #81C784;
+            --green-pale: #E8F5E9;
+            --white: #FFFFFF;
+            --dark: #1a1a2e;
+            --dark-light: #16213e;
+            --gray-light: #f5f7fa;
+            --gray: #6c757d;
+            --text-dark: #2d2d2d;
+            --shadow: 0 10px 40px rgba(0,0,0,0.1);
+            --shadow-hover: 0 20px 60px rgba(0,0,0,0.15);
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+            background: var(--white);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ========== ANIMATIONS ========== */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate {
+            opacity: 0;
+        }
+
+        .animate.visible {
+            animation-duration: 0.8s;
+            animation-fill-mode: forwards;
+            animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .animate.visible.fade-up { animation-name: fadeInUp; }
+        .animate.visible.fade-left { animation-name: fadeInLeft; }
+        .animate.visible.fade-right { animation-name: fadeInRight; }
+
+        .delay-1 { animation-delay: 0.1s !important; }
+        .delay-2 { animation-delay: 0.2s !important; }
+        .delay-3 { animation-delay: 0.3s !important; }
+        .delay-4 { animation-delay: 0.4s !important; }
+        .delay-5 { animation-delay: 0.5s !important; }
+
+        /* ========== NAVBAR ========== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: var(--transition);
+            background: transparent;
+        }
+
+        .navbar.scrolled {
+            background: rgba(27, 94, 32, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 12px 0;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.15);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 1.6rem;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Imagem da logo na navbar */
+        .logo-img {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo i {
+            color: var(--green-accent);
+            font-size: 1.4rem;
+        }
+
+        .logo span {
+            color: var(--green-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.95rem;
+            position: relative;
+            padding: 5px 0;
+            transition: var(--transition);
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--green-accent);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--green-accent);
+        }
+
+        .nav-cta {
+            background: var(--green-light) !important;
+            color: var(--white) !important;
+            padding: 10px 24px !important;
+            border-radius: 50px;
+            font-weight: 700 !important;
+            transition: var(--transition);
+            border: 2px solid var(--green-light);
+        }
+
+        .nav-cta:hover {
+            background: transparent !important;
+            border-color: var(--green-accent);
+            color: var(--green-accent) !important;
+        }
+
+        .nav-cta::after {
+            display: none !important;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--white);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(135deg, #0d3b0f 0%, #1B5E20 30%, #2E7D32 60%, #1a4a1e 100%);
+            overflow: hidden;
+        }
+
+        /* Imagem de fundo do Hero */
+        .hero-bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            opacity: 0.25;
+            z-index: 0;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff10" d="M0,160L48,176C96,192,192,224,288,229.3C384,235,480,213,576,186.7C672,160,768,128,864,133.3C960,139,1056,181,1152,197.3C1248,213,1344,203,1392,197.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+            opacity: 0.3;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(129,199,132,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 850px;
+            padding: 0 20px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(129,199,132,0.2);
+            color: var(--green-accent);
+            padding: 8px 24px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            border: 1px solid rgba(129,199,132,0.3);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .hero h1 {
+            font-size: 3.8rem;
+            font-weight: 900;
+            color: var(--white);
+            margin-bottom: 20px;
+            line-height: 1.1;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--green-accent), #a5d6a7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 40px;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+            animation: fadeInUp 0.8s ease 0.4s forwards;
+            opacity: 0;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.6s forwards;
+            opacity: 0;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 36px;
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: var(--transition);
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background: var(--green-light);
+            color: var(--white);
+            border-color: var(--green-light);
+        }
+
+        .btn-primary:hover {
+            background: var(--green-dark);
+            border-color: var(--green-accent);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(76,175,80,0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border-color: rgba(255,255,255,0.4);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--green-accent);
+            color: var(--green-accent);
+            transform: translateY(-3px);
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--white);
+            font-size: 1.5rem;
+            animation: float 2s ease-in-out infinite;
+            opacity: 0.6;
+            z-index: 2;
+        }
+
+        /* ========== SECTION STYLES ========== */
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-label {
+            display: inline-block;
+            color: var(--green-light);
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: 2.6rem;
+            color: var(--text-dark);
+            margin-bottom: 18px;
+        }
+
+        .section-title span {
+            color: var(--green-light);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ========== SERVICES ========== */
+        .services {
+            background: var(--gray-light);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 45px 35px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--green-light), var(--green-accent));
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--green-pale), rgba(76,175,80,0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2rem;
+            color: var(--green-medium);
+            transition: var(--transition);
+        }
+
+        /* Imagem ilustrativa dos cards de serviço */
+        .service-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .service-card:hover .service-icon {
+            background: linear-gradient(135deg, var(--green-light), var(--green-medium));
+            color: var(--white);
+            transform: scale(1.1);
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .service-card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .service-link {
+            color: var(--green-light);
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .service-link:hover {
+            gap: 14px;
+            color: var(--green-dark);
+        }
+
+        /* ========== ABOUT ========== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image-main {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .about-image-main div.icon-fallback {
+            width: 100%;
+            height: 450px;
+            background: linear-gradient(135deg, var(--green-dark), var(--green-medium));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 5rem;
+        }
+
+        .about-image-float {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            background: var(--green-light);
+            color: var(--white);
+            padding: 28px 35px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .about-image-float .number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+        }
+
+        .about-image-float .label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+
+        .about-content h2 {
+            font-size: 2.4rem;
+            margin-bottom: 20px;
+        }
+
+        .about-content h2 span {
+            color: var(--green-light);
+        }
+
+        .about-content > p {
+            color: var(--gray);
+            margin-bottom: 35px;
+            line-height: 1.8;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: var(--green-pale);
+            border-radius: 15px;
+            transition: var(--transition);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .stat-number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--green-dark);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .about-features {
+            list-style: none;
+        }
+
+        .about-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .about-features li i {
+            color: var(--green-light);
+            font-size: 1.1rem;
+        }
+
+        /* ========== CARROSSEL SOBRE NÓS ========== */
+        .carousel-container {
+            width: 100%;
+            height: 450px;
+            position: relative;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        /* ========== HOW IT WORKS ========== */
+        .how-it-works {
+            background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-medium) 100%);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .how-it-works::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="%23ffffff08" stroke-width="0.5"/><circle cx="50" cy="50" r="30" fill="none" stroke="%23ffffff05" stroke-width="0.5"/></svg>') repeat;
+            background-size: 200px;
+        }
+
+        .how-it-works .section-label {
+            color: var(--green-accent);
+        }
+
+        .how-it-works .section-title {
+            color: var(--white);
+        }
+
+        .how-it-works .section-title span {
+            color: var(--green-accent);
+        }
+
+        .how-it-works .section-subtitle {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-card {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: 3px solid var(--green-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--green-accent);
+            transition: var(--transition);
+        }
+
+        .step-card:hover .step-number {
+            background: var(--green-accent);
+            color: var(--green-dark);
+            transform: scale(1.1);
+        }
+
+        .step-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+
+        .step-card p {
+            color: rgba(255,255,255,0.75);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .step-connector {
+            position: absolute;
+            top: 40px;
+            right: -20px;
+            font-size: 1.5rem;
+            color: var(--green-accent);
+            opacity: 0.5;
+        }
+
+        /* ========== TESTIMONIALS ========== */
+        .testimonials {
+            background: var(--gray-light);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 40px 30px;
+            position: relative;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .testimonial-quote {
+            font-size: 3rem;
+            color: var(--green-accent);
+            line-height: 1;
+            margin-bottom: 15px;
+            font-family: Georgia, serif;
+        }
+
+        .testimonial-card p {
+            color: var(--gray);
+            font-style: italic;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .testimonial-stars {
+            color: #f9a825;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--green-light), var(--green-accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            overflow: hidden;
+        }
+
+        /* Foto do autor do depoimento */
+        .testimonial-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .testimonial-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+        }
+
+        .testimonial-role {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* ========== CONTACT ========== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .contact-info h2 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+
+        .contact-info h2 span {
+            color: var(--green-light);
+        }
+
+        .contact-info > p {
+            color: var(--gray);
+            margin-bottom: 35px;
+            line-height: 1.8;
+        }
+
+        .contact-details {
+            list-style: none;
+        }
+
+        .contact-details li {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+
+        .contact-details li:last-child {
+            border-bottom: none;
+        }
+
+        .contact-details .icon-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--green-pale);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--green-medium);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .contact-details .detail-text strong {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--gray);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+        }
+
+        .contact-details .detail-text span {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .contact-form-wrapper {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 45px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .contact-form-wrapper h3 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            color: var(--text-dark);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e8e8e8;
+            border-radius: 12px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            background: var(--gray-light);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--green-light);
+            background: var(--white);
+            box-shadow: 0 0 0 4px rgba(76,175,80,0.1);
+        }
+
+        .form-group textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--green-light), var(--green-medium));
+            color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-submit:hover {
+            background: linear-gradient(135deg, var(--green-medium), var(--green-dark));
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(76,175,80,0.3);
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--dark);
+            color: rgba(255,255,255,0.7);
+            padding: 70px 0 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+            gap: 40px;
+            padding-bottom: 50px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-about .logo {
+            margin-bottom: 18px;
+        }
+
+        .footer-about p {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 12px;
+        }
+
+        .footer-social a {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.7);
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .footer-social a:hover {
+            background: var(--green-light);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        .footer h4 {
+            color: var(--white);
+            font-size: 1rem;
+            margin-bottom: 22px;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .footer h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 3px;
+            background: var(--green-light);
+            border-radius: 3px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            font-size: 0.9rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: var(--green-accent);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            padding: 25px 0;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        .footer-bottom span {
+            color: var(--green-accent);
+        }
+
+        /* ========== WHATSAPP FLOAT ========== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.8rem;
+            z-index: 999;
+            box-shadow: 0 6px 25px rgba(37,211,102,0.4);
+            transition: var(--transition);
+            animation: pulse 2s infinite;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 35px rgba(37,211,102,0.5);
+        }
+
+        .whatsapp-tooltip {
+            position: absolute;
+            right: 70px;
+            background: var(--white);
+            color: var(--text-dark);
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            transform: translateX(10px);
+            transition: var(--transition);
+            pointer-events: none;
+        }
+
+        .whatsapp-float:hover .whatsapp-tooltip {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1024px) {
+            .services-grid,
+            .steps-grid,
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 350px;
+                height: 100vh;
+                background: var(--dark);
+                flex-direction: column;
+                justify-content: center;
+                padding: 40px;
+                gap: 25px;
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .services-grid,
+            .steps-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 70px 0;
+            }
+
+            .about-stats {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form-wrapper {
+                padding: 30px 20px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .step-connector {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.9rem;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .btn {
+                padding: 14px 28px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-800 antialiased">
+<body>
 
-  <header class="bg-green-700 text-white shadow-md sticky top-0 z-50">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
-      <a href="#" class="flex items-center space-x-2">
-        <img src="https://placehold.co/150x40/FFFFFF/228B22?text=DRN+Agroforest" alt="DRN Agroforest Logo" class="h-10 rounded">
-      </a>
-      <nav class="hidden md:flex space-x-6">
-        <a href="#servicos" class="hover:text-green-200 transition duration-150">Serviços</a>
-        <a href="#sobre" class="hover:text-green-200 transition duration-150">Sobre</a>
-        <a href="#contato" class="hover:text-green-200 transition duration-150">Contato</a>
-      </nav>
-      <div class="md:hidden">
-        <button id="mobile-menu-button" class="text-white focus:outline-none">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-          </svg>
-        </button>
-      </div>
-    </div>
-    <div id="mobile-menu" class="md:hidden hidden bg-green-700">
-      <a href="#servicos" class="block px-4 py-2 text-white hover:bg-green-600 transition duration-150">Serviços</a>
-      <a href="#sobre" class="block px-4 py-2 text-white hover:bg-green-600 transition duration-150">Sobre</a>
-      <a href="#contato" class="block px-4 py-2 text-white hover:bg-green-600 transition duration-150">Contato</a>
-    </div>
-  </header>
-
-  <section class="relative w-full h-[60vh] sm:h-[80vh] lg:h-screen overflow-hidden flex items-center justify-center text-white">
-    <!--
-    <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover z-0">
-      <source src="./videos/video1.mp4" type="video/mp4">
-      Seu navegador não suporta a tag de vídeo.
-    </video>
-    -->
-    <div class="absolute inset-0 w-full h-full bg-gray-800 z-0">
-      <video autoplay muted loop playsinline class="w-full h-full object-cover">
-      <source src="./videos/video1.mp4" type="video/mp4">
-      Seu navegador não suporta a tag de vídeo.
-    </video>
-    </div>
-    <div class="absolute inset-0 bg-black opacity-50 z-10"></div> <div class="relative z-20 text-center p-4">
-      <img src="./img/logo.png" alt="DRN Agroforest Logo" class="max-w-xs sm:max-w-sm md:max-w-md mx-auto mb-6 rounded">
-      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 leading-tight">Tecnologia com Drones para Agricultura e Florestas</h1>
-      <p class="text-lg sm:text-xl md:text-2xl text-gray-200">Soluções inovadoras para otimizar seus resultados.</p>
-    </div>
-  </section>
-
-  <section id="servicos" class="py-16 sm:py-20 lg:py-24 bg-white fade-in-section">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-green-700">Nossos Serviços</h2>
-      <div class="relative overflow-hidden rounded-lg shadow-xl">
-        <div id="carousel-inner" class="flex transition-transform duration-500 ease-in-out">
-          <div class="carousel-item min-w-full">
-            <div class="flex flex-col md:flex-row items-center bg-gray-50 p-6 md:p-10 rounded-lg">
-              <img src="./img/image1.jpg" alt="Mapeamento Aéreo" class="w-full md:w-1/2 h-64 md:h-80 object-cover rounded-lg shadow-lg mb-6 md:mb-0 md:mr-8">
-              <div class="text-center md:text-left">
-                <h3 class="text-2xl font-semibold text-gray-800 mb-3">Mapeamento Aéreo</h3>
-                <p class="text-gray-600 leading-relaxed">Geração de ortomosaicos e modelos 3D precisos para áreas agrícolas e florestais, otimizando o planejamento e a gestão.</p>
-              </div>
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#" class="logo">
+                <img src="images/logo.png" alt="DRN Agroforest Logo" class="logo-img"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                <i class="fas fa-leaf" style="display:none;"></i>
+                DRN <span>Agroforest</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#servicos">Serviços</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#como-funciona">Como Funciona</a></li>
+                <!--<li><a href="#depoimentos">Depoimentos</a></li>-->
+                <li><a href="#contato" class="nav-cta">Contato</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
-          </div>
-          <div class="carousel-item min-w-full">
-            <div class="flex flex-col md:flex-row items-center bg-gray-50 p-6 md:p-10 rounded-lg">
-              <img src="./img/image2.jpg" alt="Monitoramento de Culturas" class="w-full md:w-1/2 h-64 md:h-80 object-cover rounded-lg shadow-lg mb-6 md:mb-0 md:mr-8">
-              <div class="text-center md:text-left">
-                <h3 class="text-2xl font-semibold text-gray-800 mb-3">Monitoramento de Culturas</h3>
-                <p class="text-gray-600 leading-relaxed">Detecção precoce de pragas, análise de estresse hídrico e avaliação da saúde das plantas para intervenções assertivas.</p>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item min-w-full">
-            <div class="flex flex-col md:flex-row items-center bg-gray-50 p-6 md:p-10 rounded-lg">
-              <img src="./img/image3.jpg" alt="Pulverização com Drones" class="w-full md:w-1/2 h-64 md:h-80 object-cover rounded-lg shadow-lg mb-6 md:mb-0 md:mr-8">
-              <div class="text-center md:text-left">
-                <h3 class="text-2xl font-semibold text-gray-800 mb-3">Pulverização com Drones</h3>
-                <p class="text-gray-600 leading-relaxed">Aplicação localizada e eficiente de insumos, defensivos e fertilizantes, com precisão, economia e menor impacto ambiental.</p>
-              </div>
-            </div>
-          </div>
         </div>
-        <button id="prevButton" class="absolute top-1/2 left-2 sm:left-4 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 sm:p-3 rounded-full hover:bg-opacity-75 transition duration-150 focus:outline-none z-10">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-        </button>
-        <button id="nextButton" class="absolute top-1/2 right-2 sm:right-4 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 sm:p-3 rounded-full hover:bg-opacity-75 transition duration-150 focus:outline-none z-10">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-        </button>
-      </div>
-      <div id="carousel-indicators" class="flex justify-center space-x-2 mt-6">
+    </nav>
+
+    <section class="hero" id="inicio">
+        <img src="images/hero-drone.jpg" alt="Drone sobrevoando lavoura" class="hero-bg-image"
+             onerror="this.style.display='none';">
+        <div class="hero-content">
+            <div class="hero-badge">🚁 Inovação no Agronegócio</div>
+            <h1>Tecnologia Aérea para <span>Agricultura e Florestas</span></h1>
+            <p>Soluções inovadoras com drones para mapeamento aéreo, monitoramento de culturas e pulverização de precisão. Mais produtividade, menos custos e maior sustentabilidade.</p>
+            <div class="hero-buttons">
+                <a href="#contato" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> Solicite um Orçamento
+                </a>
+                <a href="#servicos" class="btn btn-outline">
+                    <i class="fas fa-play-circle"></i> Nossos Serviços
+                </a>
             </div>
-    </div>
-  </section>
-
-  <section id="sobre" class="py-16 sm:py-20 lg:py-24 bg-gray-100 fade-in-section">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl sm:text-4xl font-bold text-center mb-8 text-green-700">Sobre Nós</h2>
-      <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-lg">
-        <p class="text-lg text-gray-700 leading-relaxed text-center">
-          A <strong class="text-green-700">DRN Agroforest</strong> é uma empresa especializada em soluções com drones para o setor florestal e agrícola. Atuamos com tecnologia de ponta para entregar resultados precisos, sustentáveis e economicamente vantajosos, impulsionando a produtividade e a eficiência no campo.
-        </p>
-        <p class="mt-4 text-lg text-gray-700 leading-relaxed text-center">
-          Nossa equipe é formada por profissionais qualificados e apaixonados por inovação, prontos para entender suas necessidades e oferecer as melhores estratégias para o seu negócio.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section id="contato" class="py-16 sm:py-20 lg:py-24 bg-green-50 fade-in-section">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl sm:text-4xl font-bold text-center mb-8 text-green-700">Entre em Contato</h2>
-      <div class="max-w-xl mx-auto bg-white p-8 rounded-lg shadow-xl text-center">
-        <p class="text-lg text-gray-700 mb-6">
-          Tem alguma dúvida ou gostaria de um orçamento? Fale conosco!
-        </p>
-        <div class="space-y-6">
-          <div>
-            <h3 class="text-xl font-semibold text-gray-800 mb-1">E-mail</h3>
-            <a href="mailto:contato@drnagroforest.com.br" class="text-green-600 hover:text-green-800 text-lg transition duration-150 flex items-center justify-center space-x-2">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
-              <span>contato@drnagroforest.com.br</span>
-            </a>
-          </div>
-          <div>
-            <h3 class="text-xl font-semibold text-gray-800 mb-1">Telefones / WhatsApp</h3>
-            <a href="https://wa.me/5543999536692" target="_blank" rel="noopener noreferrer" class="text-green-600 hover:text-green-800 text-lg transition duration-150 flex items-center justify-center space-x-2 mb-2">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.001 2.001a7.974 7.974 0 00-6.388 2.937L2.066 3.45A1 1 0 00.65 4.864l1.473 6.038a1 1 0 001.24.745l.001-.001.001-.001L4.84 11.13A8.001 8.001 0 1010.001 2zm0 1.5a6.5 6.5 0 11-4.596 11.096l.001-.001L4.28 12.97a1.001 1.001 0 00-1.498-.356L2.066 13.45l-.718-2.947L3.45 8.066a6.476 6.476 0 016.551-4.565zM13.414 10l-1.707-1.707a.5.5 0 00-.708 0L9.293 10H7.5a.5.5 0 000 1h1.793l1.707 1.707a.5.5 0 00.708 0L13.414 11H15a.5.5 0 000-1h-1.586z"></path></svg> <span>(43) 99953-6692</span>
-            </a>
-            <a href="https://wa.me/5543999774118" target="_blank" rel="noopener noreferrer" class="text-green-600 hover:text-green-800 text-lg transition duration-150 flex items-center justify-center space-x-2">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.001 2.001a7.974 7.974 0 00-6.388 2.937L2.066 3.45A1 1 0 00.65 4.864l1.473 6.038a1 1 0 001.24.745l.001-.001.001-.001L4.84 11.13A8.001 8.001 0 1010.001 2zm0 1.5a6.5 6.5 0 11-4.596 11.096l.001-.001L4.28 12.97a1.001 1.001 0 00-1.498-.356L2.066 13.45l-.718-2.947L3.45 8.066a6.476 6.476 0 016.551-4.565zM13.414 10l-1.707-1.707a.5.5 0 00-.708 0L9.293 10H7.5a.5.5 0 000 1h1.793l1.707 1.707a.5.5 0 00.708 0L13.414 11H15a.5.5 0 000-1h-1.586z"></path></svg> <span>(43) 99977-4118</span>
-            </a>
-          </div>
         </div>
-      </div>
-    </div>
-  </section>
+        <a href="#servicos" class="hero-scroll">
+            <i class="fas fa-chevron-down"></i>
+        </a>
+    </section>
 
-  <footer class="bg-green-800 text-white py-8">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <p>&copy; <span id="currentYear"></span> DRN Agroforest. Todos os direitos reservados.</p>
-      <p class="text-sm text-green-200 mt-1">Soluções Inteligentes para o Campo.</p>
-    </div>
-  </footer>
+    <section class="section services" id="servicos">
+        <div class="container">
+            <div class="section-header animate fade-up">
+                <span class="section-label">O que fazemos</span>
+                <h2 class="section-title">Nossos <span>Serviços</span></h2>
+                <p class="section-subtitle">Soluções completas com drones para otimizar a gestão do seu agronegócio com tecnologia de ponta.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card animate fade-up delay-1">
+                    <img src="images/servico-mapeamento.jpg" alt="Mapeamento Aéreo com Drone" class="service-img"
+                         onerror="this.style.display='none';">
+                    <div class="service-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3>Mapeamento Aéreo</h3>
+                    <p>Geração de ortomosaicos e modelos 3D precisos para áreas agrícolas e florestais, otimizando o planejamento e a gestão da sua propriedade.</p>
+                    <a href="#contato" class="service-link">
+                        Saiba mais <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="service-card animate fade-up delay-2">
+                    <img src="images/servico-monitoramento.jpg" alt="Monitoramento de Culturas" class="service-img"
+                         onerror="this.style.display='none';">
+                    <div class="service-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>Monitoramento de Culturas</h3>
+                    <p>Detecção precoce de pragas, análise de estresse hídrico e avaliação da saúde das plantas para intervenções assertivas e rápidas.</p>
+                    <a href="#contato" class="service-link">
+                        Saiba mais <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="service-card animate fade-up delay-3">
+                    <img src="images/servico-pulverizacao.jpg" alt="Pulverização com Drones" class="service-img"
+                         onerror="this.style.display='none';">
+                    <div class="service-icon">
+                        <i class="fas fa-spray-can"></i>
+                    </div>
+                    <h3>Pulverização com Drones</h3>
+                    <p>Aplicação localizada e eficiente de insumos, defensivos e fertilizantes, com precisão, economia e menor impacto ambiental.</p>
+                    <a href="#contato" class="service-link">
+                        Saiba mais <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <script>
-    // Mobile Menu Toggle
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    if (mobileMenuButton && mobileMenu) {
-      mobileMenuButton.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-      });
-      // Close mobile menu when a link is clicked
-      mobileMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          mobileMenu.classList.add('hidden');
-        });
-      });
-    }
+    <section class="section" id="sobre">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image animate fade-left">
+                    <div class="about-image-main">
+                        <div class="carousel-container">
+                            <img src="images/sobre-nos-1.jpg" alt="Equipe DRN Agroforest em campo 1" class="carousel-slide active">
+                            <img src="images/sobre-nos-2.jpg" alt="Equipe DRN Agroforest em campo 2" class="carousel-slide">
+                            <img src="images/sobre-nos-3.jpg" alt="Equipe DRN Agroforest em campo 3" class="carousel-slide">
+                            <img src="images/sobre-nos-4.jpg" alt="Equipe DRN Agroforest em campo 3" class="carousel-slide">
+                            <img src="images/sobre-nos-5.jpg" alt="Equipe DRN Agroforest em campo 3" class="carousel-slide">
+                        </div>
+                    </div>
+                    <div class="about-image-float">
+                        <div class="number">2+</div>
+                        <div class="label">Anos de Experiência</div>
+                    </div>
+                </div>
+                <div class="about-content animate fade-right">
+                    <span class="section-label">Quem Somos</span>
+                    <h2>A <span>DRN Agroforest</span> é referência em soluções com drones</h2>
+                    <p>Somos uma empresa especializada em soluções com drones para o setor florestal e agrícola. Atuamos com tecnologia de ponta para entregar resultados precisos, sustentáveis e economicamente vantajosos, impulsionando a produtividade e a eficiência no campo.</p>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <div class="stat-number" data-target="1000">0</div>
+                            <div class="stat-label">Hectares+</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-target="70">0</div>
+                            <div class="stat-label">Clientes+</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-target="200">0</div>
+                            <div class="stat-label">Projetos+</div>
+                        </div>
+                    </div>
+                    <ul class="about-features">
+                        <li><i class="fas fa-check-circle"></i> Equipamentos de última geração</li>
+                        <li><i class="fas fa-check-circle"></i> Equipe qualificada e certificada</li>
+                        <li><i class="fas fa-check-circle"></i> Resultados precisos e confiáveis</li>
+                        <li><i class="fas fa-check-circle"></i> Compromisso com sustentabilidade</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    // Carousel Logic
-    const carouselInner = document.getElementById('carousel-inner');
-    const items = carouselInner ? carouselInner.querySelectorAll('.carousel-item') : [];
-    const prevButton = document.getElementById('prevButton');
-    const nextButton = document.getElementById('nextButton');
-    const indicatorsContainer = document.getElementById('carousel-indicators');
-    let currentIndex = 0;
-    let autoSlideInterval;
+    <section class="section how-it-works" id="como-funciona">
+        <div class="container">
+            <div class="section-header animate fade-up">
+                <span class="section-label">Processo Simples</span>
+                <h2 class="section-title">Como <span>Funciona</span></h2>
+                <p class="section-subtitle">Em apenas 3 passos, transformamos tecnologia em resultados para o seu negócio.</p>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card animate fade-up delay-1">
+                    <div class="step-number">1</div>
+                    <h3>Contato</h3>
+                    <p>Entre em contato conosco por WhatsApp, formulário ou telefone. Vamos entender suas necessidades e objetivos.</p>
+                    <span class="step-connector"><i class="fas fa-arrow-right"></i></span>
+                </div>
+                <div class="step-card animate fade-up delay-2">
+                    <div class="step-number">2</div>
+                    <h3>Planejamento</h3>
+                    <p>Nossa equipe técnica elabora um plano personalizado, definindo rotas, sensores e cronogramas ideais.</p>
+                    <span class="step-connector"><i class="fas fa-arrow-right"></i></span>
+                </div>
+                <div class="step-card animate fade-up delay-3">
+                    <div class="step-number">3</div>
+                    <h3>Execução</h3>
+                    <p>Realizamos os voos com drones de alta precisão e entregamos relatórios detalhados com dados acionáveis.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    function createIndicators() {
-        if (!indicatorsContainer || items.length === 0) return;
-        indicatorsContainer.innerHTML = ''; // Clear existing indicators
-        items.forEach((_, index) => {
-            const button = document.createElement('button');
-            button.classList.add('w-3', 'h-3', 'rounded-full', 'transition-colors', 'duration-300');
-            if (index === currentIndex) {
-                button.classList.add('bg-green-600');
+   <!-- <section class="section testimonials" id="depoimentos">
+        <div class="container">
+            <div class="section-header animate fade-up">
+                <span class="section-label">Depoimentos</span>
+                <h2 class="section-title">O que nossos <span>clientes</span> dizem</h2>
+                <p class="section-subtitle">A satisfação dos nossos clientes é o melhor indicador da qualidade dos nossos serviços.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card animate fade-up delay-1">
+                    <div class="testimonial-quote">"</div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>O mapeamento aéreo da DRN nos ajudou a identificar áreas de baixa produtividade que nem sabíamos que existiam. Resultado incrível!</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <img src="images/cliente-ricardo.jpg" alt="Ricardo Mendes"
+                                 onerror="this.style.display='none'; this.parentElement.textContent='RM';">
+                        </div>
+                        <div>
+                            <div class="testimonial-name">Ricardo Mendes</div>
+                            <div class="testimonial-role">Produtor Rural - MG</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card animate fade-up delay-2">
+                    <div class="testimonial-quote">"</div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>A pulverização com drones reduziu nossos custos com defensivos em 30% e diminuiu significativamente o impacto ambiental na fazenda.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <img src="images/cliente-ana.jpg" alt="Ana Silva"
+                                 onerror="this.style.display='none'; this.parentElement.textContent='AS';">
+                        </div>
+                        <div>
+                            <div class="testimonial-name">Ana Silva</div>
+                            <div class="testimonial-role">Engenheira Agrônoma - SP</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card animate fade-up delay-3">
+                    <div class="testimonial-quote">"</div>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>Equipe extremamente profissional e comprometida. Os relatórios são detalhados e nos ajudam a tomar decisões muito mais assertivas.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <img src="images/cliente-carlos.jpg" alt="Carlos Ferreira"
+                                 onerror="this.style.display='none'; this.parentElement.textContent='CF';">
+                        </div>
+                        <div>
+                            <div class="testimonial-name">Carlos Ferreira</div>
+                            <div class="testimonial-role">Gestor Florestal - PR</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+-->
+    <section class="section" id="contato">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info animate fade-left">
+                    <span class="section-label">Fale Conosco</span>
+                    <h2>Tem alguma dúvida? <span>Entre em contato!</span></h2>
+                    <p>Estamos prontos para entender suas necessidades e oferecer as melhores soluções com drones para o seu negócio no campo.</p>
+                    <ul class="contact-details">
+                        <li>
+                            <div class="icon-circle"><i class="fas fa-phone"></i></div>
+                            <div class="detail-text">
+                                <strong>Telefones</strong>
+                                <span>(43) 99953-6692 - Rodrigo</span></br>
+                                <span>(43) 99977-4118 - Danilo</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon-circle"><i class="fas fa-envelope"></i></div>
+                            <div class="detail-text">
+                                <strong>E-mail</strong>
+                                <span>contato@drnagroforest.com.br</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon-circle"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="detail-text">
+                                <strong>Localização</strong>
+                                <span>Brasil</span>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="https://wa.me/5543999536692?text=Ol%C3%A1%2C%20equipe%20da%20DRN%20Agroforest%21%20Estou%20no%20site%20de%20voc%C3%AAs%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20servi%C3%A7os%20com%20drones." target="_blank" style="text-decoration: none;">
+                            <div class="icon-circle"><i class="fab fa-whatsapp"></i></div></a>
+                            <div class="detail-text">
+                                <strong>WhatsApp</strong>
+                             
+                                <a href="https://wa.me/5543999536692?text=Ol%C3%A1%2C%20equipe%20da%20DRN%20Agroforest%21%20Estou%20no%20site%20de%20voc%C3%AAs%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20servi%C3%A7os%20com%20drones." target="_blank" style="text-decoration: none;">
+                                    <span style="color: var(--text-dark); transition: color 0.3s;" onmouseover="this.style.color='var(--green-light)'" onmouseout="this.style.color='var(--text-dark)'">Atendimento rápido e prático</span>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="contact-form-wrapper animate fade-right">
+                    <h3>📩 Envie sua Mensagem</h3>
+                    <form action="https://api.web3forms.com/submit" method="POST" id="contactForm">
+                        <input type="hidden" name="access_key" value="361d30a1-8071-4e04-b6ff-2d8dc003aeb7">
+                        
+                        <input type="hidden" name="subject" value="Novo Contato - DRN Agroforest">
+                        
+                        <div class="form-row"> 
+                            <div class="form-group">
+                                <label for="name">Nome</label>
+                                <input type="text" id="name" name="nome" placeholder="Seu nome completo" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">E-mail</label>
+                                <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+                            </div>
+                        </div> <div class="form-group">
+                            <label for="phone">Telefone / WhatsApp</label>
+                            <input type="tel" id="phone" name="telefone" placeholder="(00) 00000-0000">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Mensagem</label>
+                            <textarea id="message" name="mensagem" placeholder="Descreva sua necessidade ou dúvida..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-paper-plane"></i> Enviar Mensagem
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <a href="#" class="logo">
+                        <i class="fas fa-leaf"></i>
+                        DRN <span>Agroforest</span>
+                    </a>
+                    <p>Soluções inteligentes com drones para agricultura e florestas. Tecnologia de ponta para impulsionar a produtividade e sustentabilidade no campo.</p>
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/drnagroforest?igsh=OW8yeWR1azQ0dDVy" aria-label="Instagram"><i class="fab fa-instagram"></i></a>                        
+                        <a href="https://www.linkedin.com/company/drn-agroforest/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4>Links Rápidos</h4>
+                    <ul class="footer-links">
+                        <li><a href="#inicio"><i class="fas fa-chevron-right" style="font-size:0.7rem"></i> Início</a></li>
+                        <li><a href="#servicos"><i class="fas fa-chevron-right" style="font-size:0.7rem"></i> Serviços</a></li>
+                        <li><a href="#sobre"><i class="fas fa-chevron-right" style="font-size:0.7rem"></i> Sobre Nós</a></li>
+                        <li><a href="#contato"><i class="fas fa-chevron-right" style="font-size:0.7rem"></i> Contato</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Serviços</h4>
+                    <ul class="footer-links">
+                        <li><a href="#servicos"><i class="fas fa-chevron-right" style="font-size:0.7rem"></i> Mapeamento Aéreo</a></li>
+                        <li><a href="#servicos"><i class="fas fa-chevron-right" style="font-size:0.7rem"></i> Monitoramento</a></li>
+                        <li><a href="#servicos"><i class="fas fa-chevron-right" style="font-size:0.7rem"></i> Pulverização</a></li>
+                        <li><a href="#servicos"><i class="fas fa-chevron-right" style="font-size:0.7rem"></i> Consultoria</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Contato</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:contato@drnagroforest.com.br"><i class="fas fa-envelope" style="font-size:0.8rem"></i> contato@drnagroforest.com.br</a></li>
+                        <li><a href="tel:+554399536692"><i class="fas fa-phone" style="font-size:0.8rem"></i> (43) 99953-6692</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt" style="font-size:0.8rem"></i> Brasil</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 <span>DRN Agroforest</span>. Todos os direitos reservados. Soluções Inteligentes para o Campo.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== WHATSAPP FLOAT ========== -->
+    <a href="https://wa.me/5543999536692?text=Ol%C3%A1%2C%20equipe%20da%20DRN%20Agroforest%21%20Estou%20no%20site%20de%20voc%C3%AAs%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20servi%C3%A7os%20com%20drones." target="_blank" class="whatsapp-float" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+        <div class="whatsapp-tooltip">Fale conosco pelo WhatsApp!</div>
+    </a>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
             } else {
-                button.classList.add('bg-gray-300', 'hover:bg-gray-400');
-            }
-            button.setAttribute('aria-label', `Go to slide ${index + 1}`);
-            button.addEventListener('click', () => {
-                goToSlide(index);
-                resetAutoSlide();
-            });
-            indicatorsContainer.appendChild(button);
-        });
-    }
-
-    function updateIndicators() {
-        if (!indicatorsContainer) return;
-        const indicatorButtons = indicatorsContainer.querySelectorAll('button');
-        indicatorButtons.forEach((button, index) => {
-            if (index === currentIndex) {
-                button.classList.add('bg-green-600');
-                button.classList.remove('bg-gray-300', 'hover:bg-gray-400');
-            } else {
-                button.classList.remove('bg-green-600');
-                button.classList.add('bg-gray-300', 'hover:bg-gray-400');
+                navbar.classList.remove('scrolled');
             }
         });
-    }
-    
-    function updateCarousel() {
-      if (carouselInner && items.length > 0) {
-        carouselInner.style.transform = `translateX(-${currentIndex * 100}%)`;
-        updateIndicators();
-      }
-    }
 
-    function goToSlide(index) {
-        currentIndex = index;
-        updateCarousel();
-    }
+        // Hamburger menu
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
 
-    function resetAutoSlide() {
-        clearInterval(autoSlideInterval);
-        if (items.length > 1) {
-            autoSlideInterval = setInterval(() => {
-                currentIndex = (currentIndex + 1) % items.length;
-                updateCarousel();
-            }, 7000); // Increased auto-slide interval
-        }
-    }
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
 
-    if (items.length > 0) {
-        createIndicators(); // Initial creation of indicators
-        updateCarousel(); // Set initial position
-
-        if (prevButton) {
-            prevButton.addEventListener('click', () => {
-                currentIndex = (currentIndex - 1 + items.length) % items.length;
-                updateCarousel();
-                resetAutoSlide();
+        // Close menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
             });
-        }
+        });
 
-        if (nextButton) {
-            nextButton.addEventListener('click', () => {
-                currentIndex = (currentIndex + 1) % items.length;
-                updateCarousel();
-                resetAutoSlide();
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
             });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Counter animation
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('.stat-number');
+                    counters.forEach(counter => {
+                        const target = parseInt(counter.getAttribute('data-target'));
+                        const duration = 2000;
+                        const step = target / (duration / 16);
+                        let current = 0;
+
+                        const updateCounter = () => {
+                            current += step;
+                            if (current < target) {
+                                counter.textContent = Math.ceil(current);
+                                requestAnimationFrame(updateCounter);
+                            } else {
+                                counter.textContent = target + '+';
+                            }
+                        };
+                        updateCounter();
+                    });
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsSection = document.querySelector('.about-stats');
+        if (statsSection) {
+            counterObserver.observe(statsSection);
         }
-        resetAutoSlide(); // Start auto-slide
-    } else {
-        // Hide controls if no items
-        if (prevButton) prevButton.style.display = 'none';
-        if (nextButton) nextButton.style.display = 'none';
-        if (indicatorsContainer) indicatorsContainer.style.display = 'none';
-    }
 
+        // Form submission
 
-    // Dynamic Year for Footer
-    const currentYearSpan = document.getElementById('currentYear');
-    if (currentYearSpan) {
-      currentYearSpan.textContent = new Date().getFullYear();
-    }
+        // Carrossel Sobre Nós
+        const slides = document.querySelectorAll('.carousel-slide');
+        let currentSlide = 0;
 
-    // Intersection Observer for fade-in sections
-    const sections = document.querySelectorAll('.fade-in-section');
-    const observerOptions = {
-      root: null, // relative to document viewport
-      rootMargin: '0px',
-      threshold: 0.1 // 10% of item visible
-    };
-
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target); // Optional: stop observing once visible
+        if (slides.length > 0) {
+            setInterval(() => {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }, 3500); // Troca a imagem a cada 3.5 segundos
         }
-      });
-    }, observerOptions);
 
-    sections.forEach(section => {
-      observer.observe(section);
-    });
+        // Envio do formulário via Web3Forms sem recarregar a página
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Impede que a página recarregue ou mude de URL
 
-  </script>
+            const form = e.target;
+            const formData = new FormData(form);
+            
+            // Efeito visual no botão
+            const btn = form.querySelector('.btn-submit');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            btn.disabled = true;
+
+            // Envia os dados silenciosamente
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Se deu certo, mostra seu alerta e limpa o formulário
+                    alert('Mensagem enviada com sucesso! Entraremos em contato em breve. 🚁');
+                    form.reset();
+                } else {
+                    // Se a chave estiver errada ou der erro
+                    alert('Algo deu errado: ' + data.message);
+                }
+            })
+            .catch(error => {
+                alert('Ocorreu um erro na comunicação. Por favor, tente novamente.');
+                console.error(error);
+            })
+            .finally(() => {
+                // Devolve o botão ao estado normal
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            });
+        });
+    </script>
+
 </body>
 </html>
